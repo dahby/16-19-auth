@@ -28,7 +28,7 @@ describe('auth-router', () => {
     return superagent.post(`${apiURL}`)
       .send({
         username: 'dave',
-        email: 'dave@dave.com',
+        password: '12345',        
       })
       .then(Promise.reject)
       .catch((error) => {
