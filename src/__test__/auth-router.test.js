@@ -13,7 +13,7 @@ describe('auth-router', () => {
   // afterAll(removeAccountMock);
 
   test('POST should return 200 & TOKEN', () => {
-    return superagent.post(apiURL)
+    return superagent.post(`${apiURL}`)
       .send({
         username: 'david',
         email: 'david@david.com',
@@ -25,23 +25,27 @@ describe('auth-router', () => {
       });
   });
   test('POST bad request should return a 400', () => {
-    return superagent.post(apiURL)
+    return superagent.post(`${apiURL}`)
       .send({
-
+        username: 'dave',
+        email: 'dave@dave.com',
       })
-      .then((response) => {
-        expect(response.status).toEqual(400);
+      .then(Promise.reject)
+      .catch((error) => {
+        expect(error.status).toEqual(400);
       });
   });
   test('POST duplicate key should result in a 409', () => {
-    return superagent.post(apiURL)
+    return superagent.post(`${apiURL}`)
       .send({
         username: 'david',
         // email: 'david@david.com',
         // password: 'davidspassword1',
       })
-      .then((response) => {
-        expect(response.status).toEqual(409);
+      // .then(Promise.reject)
+      .catch((error) => {
+        expect(error.status).toEqual(409);
       });
   });
 });
+
