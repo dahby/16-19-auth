@@ -9,8 +9,8 @@ const apiURL = `http://localhost:${process.env.PORT}/signup`;
 describe('auth-router', () => {
   beforeAll(startServer);
   afterAll(stopServer);
-  // afterEach(removeAccountMock);
-  afterAll(removeAccountMock);
+  afterEach(removeAccountMock);
+  // afterAll(removeAccountMock);
 
   test('POST should return 200 & TOKEN', () => {
     return superagent.post(apiURL)
@@ -37,8 +37,8 @@ describe('auth-router', () => {
     return superagent.post(apiURL)
       .send({
         username: 'david',
-        email: 'david@david.com',
-        password: 'davidspassword1',
+        // email: 'david@david.com',
+        // password: 'davidspassword1',
       })
       .then((response) => {
         expect(response.status).toEqual(409);
