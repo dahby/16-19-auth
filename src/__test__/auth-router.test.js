@@ -9,7 +9,8 @@ const apiURL = `http://localhost:${process.env.PORT}/signup`;
 describe('auth-router', () => {
   beforeAll(startServer);
   afterAll(stopServer);
-  afterEach(removeAccountMock);
+  // afterEach(removeAccountMock);
+  afterAll(removeAccountMock);
 
   test('POST should return 200 & TOKEN', () => {
     return superagent.post(apiURL)
@@ -21,6 +22,26 @@ describe('auth-router', () => {
       .then((response) => {
         expect(response.status).toEqual(200);
         expect(response.body.token).toBeTruthy();
+      });
+  });
+  test('POST bad request should return a 400', () => {
+    return superagent.post(apiURL)
+      .send({
+
+      })
+      .then((response) => {
+        expect(response.status).toEqual(400);
+      });
+  });
+  test('POST duplicate key should result in a 409', () => {
+    return superagent.post(apiURL)
+      .send({
+        username: 'david',
+        email: 'david@david.com',
+        password: 'davidspassword1',
+      })
+      .then((response) => {
+        expect(response.status).toEqual(409);
       });
   });
 });
