@@ -1,8 +1,9 @@
 'use strict';
 
 import superagent from 'superagent';
+import faker from 'faker';
 import { startServer, stopServer } from '../lib/server';
-import { removeAccountMock } from './lib/account-mock';
+import { createAccountMock, removeAccountMock } from './lib/account-mock';
 
 const apiURL = `http://localhost:${process.env.PORT}/signup`;
 
@@ -36,15 +37,20 @@ describe('auth-router', () => {
       });
   });
   test('POST duplicate key should result in a 409', () => {
-    return superagent.post(`${apiURL}`)
-      .send({
-        username: 'david',
-        // email: 'david@david.com',
-        // password: 'davidspassword1',
-      })
-      // .then(Promise.reject)
-      .catch((error) => {
-        expect(error.status).toEqual(409);
+    return createAccountMock()
+      .then((mockAccount) => {
+        return superagent.post(`${apiURL}`)
+          .send({
+            username: faker.internet.userName(),
+            email: mockAccount.account.email,
+            password: faker.lorem.words(5),
+            // email: 'david@david.com',
+            // password: 'davidspassword1',
+          })
+        // .then(Promise.reject)
+          .catch((error) => {
+            expect(error.status).toEqual(409);
+          });
       });
   });
 });
