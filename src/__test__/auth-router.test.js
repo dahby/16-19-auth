@@ -11,7 +11,6 @@ describe('auth-router', () => {
   beforeAll(startServer);
   afterAll(stopServer);
   afterEach(removeAccountMock);
-  // afterAll(removeAccountMock);
 
   test('POST should return 200 & TOKEN', () => {
     return superagent.post(`${apiURL}`)
@@ -44,10 +43,7 @@ describe('auth-router', () => {
             username: faker.internet.userName(),
             email: mockAccount.account.email,
             password: faker.lorem.words(5),
-            // email: 'david@david.com',
-            // password: 'davidspassword1',
           })
-        // .then(Promise.reject)
           .catch((error) => {
             expect(error.status).toEqual(409);
           });
