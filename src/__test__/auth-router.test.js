@@ -44,6 +44,7 @@ describe('auth-router', () => {
             email: mockAccount.account.email,
             password: faker.lorem.words(5),
           })
+          .then(Promise.reject)
           .catch((error) => {
             expect(error.status).toEqual(409);
           });
