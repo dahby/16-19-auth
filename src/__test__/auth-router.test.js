@@ -62,6 +62,17 @@ describe('auth-router', () => {
           expect(response.body.token).toBeTruthy();
         });
     });
+    test('GET /login should return 400', () => {
+      return createAccountMock()
+        .then((mock) => {
+          return superagent.get(`${apiURL}/login`)
+            .auth(mock.request.password);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(400);
+        });
+    });
   });
 });
 

@@ -7,6 +7,8 @@ const profileSchema = mongoose.Schema({
   lastName: { type: String },
   bio: { type: String },
   avatar: { type: String },
+  favoriteColor: { type: String },
+  location: { type: String },
   account: {
     type: mongoose.Schema.ObjectId,
     required: true,

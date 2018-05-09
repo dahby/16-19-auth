@@ -32,4 +32,29 @@ describe('POST /profiles', () => {
         expect(response.body.bio).toEqual('This is my bio');
       });
   });
+  test('POST /profiles should return 400 error if no token', () => {
+    return createAccountMock()
+      .then(() => {
+        return superagent.post(`${apiURL}/profiles`)
+          .send({
+            bio: 'This is my bio',
+            firstName: 'David',
+            lastName: 'Stoll',
+          });
+      })
+      .then(Promise.reject)
+      .catch((error) => {
+        expect(error.status).toEqual(400);
+      });
+  });
+  describe('GET /profiles', () => {
+    test('GET /profile should return a 200 & profile', () => {
+      // return createProfileMock()
+      //   .then((mock) => {
+      //     return superagent.get(`${apiURL}/profiles`)
+      //       .auth()
+      //   })
+    });
+  });
 });
+

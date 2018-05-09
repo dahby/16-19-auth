@@ -4,7 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import logger from './logger';
 import authRoutes from '../route/auth-router';
-import profileRoutes from '../route/profile-route';
+import profileRoutes from '../route/profile-router';
 import errorMiddleware from './error-middleware';
 
 const app = express();
