@@ -1,5 +1,7 @@
+.idea/
+db/
 
-# Created by https://www.gitignore.io/api/node,linux,macos,windows,webstorm,visualstudiocode
+# Created by https://www.gitignore.io/api/vim,node,macos,linux,windows,webstorm,visualstudiocode
 
 ### Linux ###
 *~
@@ -103,6 +105,18 @@ typings/
 # dotenv environment variables file
 .env
 
+
+### Vim ###
+# swap
+.sw[a-p]
+.*.sw[a-p]
+# session
+Session.vim
+# temporary
+.netrwhist
+# auto-generated tag files
+tags
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -198,4 +212,4 @@ $RECYCLE.BIN/
 *.lnk
 
 
-# End of https://www.gitignore.io/api/node,linux,macos,windows,webstorm,visualstudiocode
+# End of https://www.gitignore.io/api/vim,node,macos,linux,windows,webstorm,visualstudiocode
