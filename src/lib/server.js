@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import logger from './logger';
 import authRoutes from '../route/auth-router';
 import profileRoutes from '../route/profile-router';
+import pdfRoutes from '../route/pdf-router';
 import errorMiddleware from './error-middleware';
 
 const app = express();
@@ -12,6 +13,8 @@ let server = null;
 
 app.use(authRoutes);
 app.use(profileRoutes);
+app.use(pdfRoutes);
+
 
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning a 404 from the catch-all/default route');
