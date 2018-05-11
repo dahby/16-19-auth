@@ -44,19 +44,19 @@ describe('TESTING ROUTES AT /pdf', () => {
             });
         });
     });
-    // test('POST should return 401 for bad token', () => {
-    //   return createPdfMock()
-    //     .then(() => {
-    //       return superagent.post(`${apiURL}/pdf`)
-    //         .set('Authorization', 'Bearer badToken')
-    //         .field('title', 'very important document')
-    //         .attach('pdf', `${__dirname}/assets/doc.pdf`)
-    //         .then(Promise.reject);
-    //     })
-    //     .catch((error) => {
-    //       expect(error.status).toEqual(401);
-    //     });
-    // });
+    test('POST should return 401 for bad token', () => {
+      return createPdfMock()
+        .then(() => {
+          return superagent.post(`${apiURL}/pdf`)
+            .set('Authorization', 'Bearer badToken')
+            .field('title', 'very important document')
+            .attach('pdf', `${__dirname}/assets/doc.pdf`)
+            .then(Promise.reject);
+        })
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
     describe('GET /pdf', () => {
       test('should return 200 and the returned object', () => {
         return createPdfMock()
