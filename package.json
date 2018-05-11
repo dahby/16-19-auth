@@ -6,7 +6,9 @@
   "scripts": {
     "test": "eslint . && jest --coverage --forceExit --runInBand",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db",
-    "dbOff": "killall mongod"
+    "dbOff": "killall mongod",
+    "build": "babel src -d build",
+    "start": "babel src -d build && node index.js"
   },
   "jest": {
     "setupFiles": [
@@ -25,16 +27,16 @@
   },
   "homepage": "https://github.com/dahby/16-19-auth#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "bluebird": "^3.5.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jest": "^21.15.1",
     "jest": "^22.4.3",
-    "nodemon": "^1.17.4",
     "superagent": "^3.8.3"
   },
   "dependencies": {
@@ -46,7 +48,6 @@
     "http-errors": "^1.6.3",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.0.17",
-    "uuid": "^3.2.1",
     "winston": "^3.0.0-rc5"
   }
 }
