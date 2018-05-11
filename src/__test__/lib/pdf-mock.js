@@ -14,6 +14,7 @@ const createPdfMock = () => {
       return new Pdf({
         title: faker.lorem.words(5),
         url: faker.random.image(),
+        key: faker.random.number(),
         account: resultMock.accountMock.account._id,
       }).save();
     })

@@ -15,6 +15,10 @@ const pdfSchema = mongoose.Schema({
     type: Date,
     default: () => new Date(),
   },
+  key: {
+    type: String,
+    required: true,
+  },
   account: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

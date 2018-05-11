@@ -8,11 +8,11 @@ const apiURL = `http://localhost:${process.env.PORT}`;
 
 describe('TESTING ROUTES AT /pdf', () => {
   beforeAll(startServer);
-  afterAll(stopServer);
   afterEach(removePdfMock);
+  afterAll(stopServer);
 
-  describe('POST 200 for successful post to /pdf', () => {
-    test('should return 200', () => {
+  describe('POST /pdf', () => {
+    test('should return 200 for successful POST', () => {
       return createPdfMock()
         .then((mockResponse) => {
           const { token } = mockResponse.accountMock;
@@ -26,9 +26,41 @@ describe('TESTING ROUTES AT /pdf', () => {
               expect(response.body._id).toBeTruthy();
               expect(response.body.url).toBeTruthy();
             });
+        // })
+        // .catch((error) => {
+        //   expect(error.status).toEqual(200);
+        });
+    });
+  });
+  describe('GET /pdf', () => {
+    test('should return 200 and the returned object', () => {
+      return createPdfMock()
+        .then((mockResponse) => {
+          const { token } = mockResponse.accountMock;
+          return superagent.get(`${apiURL}/pdf/${mockResponse.pdf._id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .then((response) => {
+              expect(response.status).toEqual(200);
+              expect(response.body.title).toEqual(mockResponse.pdf.title);
+              expect(response.body._id).toEqual(mockResponse.pdf._id.toString());
+              expect(response.body.url).toEqual(mockResponse.pdf.url);
+            });
         })
         .catch((error) => {
           expect(error.status).toEqual(200);
+        });
+    });
+  });
+  describe('DELETE /pdf', () => {
+    test('should return 204 for successful deletion', () => {
+      return createPdfMock()
+        .then((mockResponse) => {
+          const { token } = mockResponse.accountMock;
+          return superagent.delete(`${apiURL}/pdf/${mockResponse.pdf._id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .then((response) => {
+              expect(response.status).toEqual(204);
+            });
         });
     });
   });
