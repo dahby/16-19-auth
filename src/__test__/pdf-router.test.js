@@ -112,6 +112,17 @@ describe('TESTING ROUTES AT /pdf', () => {
             });
         });
     });
+    test('should return 401 for bad token', () => {
+      return createPdfMock()
+        .then((mockResponse) => {
+          return superagent.delete(`${apiURL}/pdf/${mockResponse.pdf._id}`)
+            .set('Authorization', 'Bearer badToken')
+            .then(Promise.reject);
+        })
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
     test('should return 404 for bad id', () => {
       return createPdfMock()
         .then((mockResponse) => {
