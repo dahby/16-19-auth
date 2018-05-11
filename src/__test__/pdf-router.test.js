@@ -57,36 +57,47 @@ describe('TESTING ROUTES AT /pdf', () => {
           expect(error.status).toEqual(401);
         });
     });
-    describe('GET /pdf', () => {
-      test('should return 200 and the returned object', () => {
-        return createPdfMock()
-          .then((mockResponse) => {
-            const { token } = mockResponse.accountMock;
-            return superagent.get(`${apiURL}/pdf/${mockResponse.pdf._id}`)
-              .set('Authorization', `Bearer ${token}`)
-              .then((response) => {
-                expect(response.status).toEqual(200);
-                expect(response.body.title).toEqual(mockResponse.pdf.title);
-                expect(response.body._id).toEqual(mockResponse.pdf._id.toString());
-                expect(response.body.url).toEqual(mockResponse.pdf.url);
-              });
-          })
-          .catch((error) => {
-            expect(error.status).toEqual(200);
-          });
-      });
-      test('should return 404 for bad id', () => {
-        return createPdfMock()
-          .then((mockResponse) => {
-            const { token } = mockResponse.accountMock;
-            return superagent.get(`${apiURL}/pdf/badId`)
-              .set('Authorization', `Bearer ${token}`)
-              .then(Promise.reject)
-              .catch((error) => {
-                expect(error.status).toEqual(404);
-              });
-          });
-      });
+  });
+  describe('GET /pdf', () => {
+    test('should return 200 and the returned object', () => {
+      return createPdfMock()
+        .then((mockResponse) => {
+          const { token } = mockResponse.accountMock;
+          return superagent.get(`${apiURL}/pdf/${mockResponse.pdf._id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .then((response) => {
+              expect(response.status).toEqual(200);
+              expect(response.body.title).toEqual(mockResponse.pdf.title);
+              expect(response.body._id).toEqual(mockResponse.pdf._id.toString());
+              expect(response.body.url).toEqual(mockResponse.pdf.url);
+            });
+        })
+        .catch((error) => {
+          expect(error.status).toEqual(200);
+        });
+    });
+    test('should return 401 for bad token', () => {
+      return createPdfMock()
+        .then((mockResponse) => {
+          return superagent.get(`${apiURL}/pdf/${mockResponse.pdf._id}`)
+            .set('Authorization', 'Bearer badToken')
+            .then(Promise.reject);
+        })
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
+    test('should return 404 for bad id', () => {
+      return createPdfMock()
+        .then((mockResponse) => {
+          const { token } = mockResponse.accountMock;
+          return superagent.get(`${apiURL}/pdf/badId`)
+            .set('Authorization', `Bearer ${token}`)
+            .then(Promise.reject)
+            .catch((error) => {
+              expect(error.status).toEqual(404);
+            });
+        });
     });
   });
   describe('DELETE /pdf', () => {
