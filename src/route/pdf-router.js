@@ -7,7 +7,7 @@ import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 import Pdf from '../model/pdf';
 import { s3Upload, s3Remove } from '../lib/s3';
 
-const multerUpload = multer({ dest: `${__dirname}/../temp` });
+const multerUpload = multer({ dest: `${__dirname}/../temp/` });
 
 const pdfRouter = new Router();
 
